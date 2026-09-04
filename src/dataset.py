@@ -10,7 +10,7 @@ ID2LABEL = {i: name for name, i in LABEL2ID.items()}
 
 def _normalize_labels(df: pd.DataFrame) -> pd.DataFrame:
     """Garantiza `label` como entero 0..3 y conserva el nombre en `label_name`."""
-    if df["label"].dtype == object:
+    if not pd.api.types.is_numeric_dtype(df["label"]):
         df["label_name"] = df["label"]
         df["label"] = df["label"].map(LABEL2ID)
     else:
