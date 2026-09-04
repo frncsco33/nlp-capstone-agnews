@@ -5,7 +5,9 @@ Proyecto incremental del curso **Data Science III: NLP & Deep Learning aplicado 
 ## Estructura
 
 ```
-├── data/                    # ag_news_train.csv / ag_news_test.csv (no versionados)
+├── data/
+│   ├── ag_news/             # CSVs provistos por la cátedra (8.000 train / 2.000 test)
+│   ├── cargar_dataset.py    # loader provisto por la cátedra
 │   └── processed/           # corpus limpio generado por el Módulo 2
 ├── notebooks/
 │   ├── 01_pipeline_base_pytorch.ipynb    # Módulo 1
@@ -26,6 +28,18 @@ pip install -r requirements.txt
 python -m spacy download en_core_web_sm
 ```
 
-Colocar `ag_news_train.csv` y `ag_news_test.csv` en `data/` y correr los notebooks en orden. Semilla global `SEED = 42` (`src/config.py`). El notebook 04 requiere GPU (Google Colab).
+Los CSVs de la cátedra ya están versionados en `data/ag_news/`. Correr los notebooks en orden. Semilla global `SEED = 42` (`src/config.py`). El notebook 04 requiere GPU (Google Colab).
 
-<!-- Secciones por completar al cierre de cada módulo: interpretación de la curva M1, decisiones del EDA, justificación del clasificador M3, resultados LoRA M4 -->
+## Resultados por módulo
+
+### Módulo 1 — Pipeline PyTorch
+PyTorch 2.14.0 · Adam con `learning_rate = 1e-3` · 6 épocas · MLP de una capa oculta (256, ReLU, dropout 0.3) sobre TF-IDF. La pérdida de entrenamiento cae 1.31 → 0.15 y la de validación 1.14 → 0.28, ambas monótonas: convergencia en ~3 épocas, sobreajuste incipiente contenido por el dropout. F1 (weighted) final en validación: **0.9122**. Interpretación completa en el notebook 01.
+
+### Módulo 2 — Preprocesamiento y EDA
+Pipeline Regex + SpaCy (`en_core_web_sm`): minúsculas, remoción de tags/entidades HTML (incluidas las truncadas tipo `quot;` que detectó el propio EDA), URLs, lematización y filtro de stop-words conservando tokens cortos de dominio ("us", "uk", "eu"). p95 de longitud del texto limpio: **33 tokens**. Clases perfectamente balanceadas (2.000 por categoría).
+
+### Módulo 3 — Baseline TF-IDF
+Tres configuraciones evaluadas contra validación (empate técnico: los bigramas no aportan en documentos de ~33 tokens); gana por parsimonia `max_features=20000`, unigramas, `min_df=2`, `sublinear_tf`. LogisticRegression con 36.864 parámetros entrena en <1 s. **Test: accuracy 0.8960 · F1 weighted 0.8960 · F1 macro 0.8960** — en línea con la referencia de la cátedra (≈0.90). Mayor confusión: Business ↔ Sci_Tech.
+
+### Módulo 4 — Fine-tuning con LoRA
+Notebook 04, ejecutado en Google Colab (GPU). DistilBERT + adaptadores LoRA (`r=8`, `alpha=16`, módulos `q_lin`/`v_lin`); `max_len` = p95 de subword tokens medido con el tokenizador del modelo sobre texto crudo. Resultados y tabla comparativa contra el baseline en `reports/metrics/`.
