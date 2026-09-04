@@ -17,8 +17,8 @@ PROCESSED_DIR = DATA_DIR / "processed"
 FIGURES_DIR = ROOT / "reports" / "figures"
 METRICS_DIR = ROOT / "reports" / "metrics"
 
-TRAIN_CSV = DATA_DIR / "ag_news_train.csv"
-TEST_CSV = DATA_DIR / "ag_news_test.csv"
+TRAIN_CSV = DATA_DIR / "ag_news" / "ag_news_train.csv"
+TEST_CSV = DATA_DIR / "ag_news" / "ag_news_test.csv"
 
 LABEL_NAMES = ["World", "Sports", "Business", "Sci_Tech"]
 N_CLASSES = len(LABEL_NAMES)
