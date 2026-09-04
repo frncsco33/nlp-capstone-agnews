@@ -38,5 +38,5 @@ def plot_confusion(y_true, y_pred, name: str, title: str) -> Path:
     plt.tight_layout()
     path = FIGURES_DIR / f"{name}.png"
     plt.savefig(path, dpi=150)
-    plt.close()
+    plt.show()
     return path

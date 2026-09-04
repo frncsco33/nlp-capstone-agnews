@@ -1,0 +1,82 @@
+{
+  "classification_report": {
+    "World": {
+      "precision": 0.9096509240246407,
+      "recall": 0.886,
+      "f1-score": 0.8976697061803445,
+      "support": 500.0
+    },
+    "Sports": {
+      "precision": 0.9504950495049505,
+      "recall": 0.96,
+      "f1-score": 0.9552238805970149,
+      "support": 500.0
+    },
+    "Business": {
+      "precision": 0.8543307086614174,
+      "recall": 0.868,
+      "f1-score": 0.8611111111111112,
+      "support": 500.0
+    },
+    "Sci_Tech": {
+      "precision": 0.87,
+      "recall": 0.87,
+      "f1-score": 0.87,
+      "support": 500.0
+    },
+    "accuracy": 0.896,
+    "macro avg": {
+      "precision": 0.8961191705477521,
+      "recall": 0.896,
+      "f1-score": 0.8960011744721177,
+      "support": 2000.0
+    },
+    "weighted avg": {
+      "precision": 0.8961191705477521,
+      "recall": 0.896,
+      "f1-score": 0.8960011744721177,
+      "support": 2000.0
+    }
+  },
+  "modelo": "TfidfVectorizer + LogisticRegression",
+  "configuracion": {
+    "max_features": 20000,
+    "ngram_range": [
+      1,
+      1
+    ],
+    "min_df": 2,
+    "sublinear_tf": true
+  },
+  "experimentos_validacion": {
+    "A": {
+      "max_features": 20000,
+      "ngram_range": [
+        1,
+        1
+      ],
+      "f1_val_weighted": 0.9058,
+      "fit_seconds": 0.1
+    },
+    "B": {
+      "max_features": 50000,
+      "ngram_range": [
+        1,
+        2
+      ],
+      "f1_val_weighted": 0.9058,
+      "fit_seconds": 0.2
+    },
+    "C": {
+      "max_features": 100000,
+      "ngram_range": [
+        1,
+        2
+      ],
+      "f1_val_weighted": 0.9058,
+      "fit_seconds": 0.2
+    }
+  },
+  "parametros_entrenables": 36864,
+  "tiempo_entrenamiento_seg": 0.1
+}
