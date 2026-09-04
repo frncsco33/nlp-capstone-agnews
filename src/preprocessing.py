@@ -6,6 +6,10 @@ import spacy
 nlp = spacy.load("en_core_web_sm", disable=["parser", "ner"])
 
 RE_HTML = re.compile(r"<[^>]+>")
+# Entidades HTML y sus remanentes: el corpus trae formas completas (&lt;) y también
+# truncadas sin ampersand ("quot;", "#39;"); sin esto sobreviven como tokens
+# "lt"/"gt"/"quot" y contaminan el top de palabras — lo detectó el EDA del Módulo 2.
+RE_ENTITY = re.compile(r"&(?:[a-z]{2,8}|#\d+);|\b(?:quot|amp|lt|gt|nbsp|apos);|#\d+;")
 RE_URL = re.compile(r"http\S+|www\.\S+")
 RE_NOISE = re.compile(r"[^a-z\s]")
 RE_WS = re.compile(r"\s+")
@@ -18,6 +22,7 @@ MIN_LEMMA_LEN = 1
 def clean(text: str) -> str:
     text = text.lower()
     text = RE_HTML.sub(" ", text)
+    text = RE_ENTITY.sub(" ", text)
     text = RE_URL.sub(" ", text)
     text = RE_NOISE.sub(" ", text)
     return RE_WS.sub(" ", text).strip()
