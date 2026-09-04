@@ -1,0 +1,11 @@
+torch>=2.2
+transformers>=4.40
+peft>=0.10
+datasets>=2.19
+accelerate>=0.30
+scikit-learn>=1.4
+spacy>=3.7
+pandas>=2.2
+numpy>=1.26
+matplotlib>=3.8
+seaborn>=0.13
