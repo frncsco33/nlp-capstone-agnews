@@ -1,49 +1,49 @@
 {
   "classification_report": {
     "World": {
-      "precision": 0.9096509240246407,
+      "precision": 0.9134020618556701,
       "recall": 0.886,
-      "f1-score": 0.8976697061803445,
+      "f1-score": 0.899492385786802,
       "support": 500.0
     },
     "Sports": {
-      "precision": 0.9504950495049505,
-      "recall": 0.96,
-      "f1-score": 0.9552238805970149,
+      "precision": 0.9449901768172888,
+      "recall": 0.962,
+      "f1-score": 0.9534192269573836,
       "support": 500.0
     },
     "Business": {
-      "precision": 0.8543307086614174,
-      "recall": 0.868,
-      "f1-score": 0.8611111111111112,
+      "precision": 0.847953216374269,
+      "recall": 0.87,
+      "f1-score": 0.8588351431391905,
       "support": 500.0
     },
     "Sci_Tech": {
-      "precision": 0.87,
-      "recall": 0.87,
-      "f1-score": 0.87,
+      "precision": 0.8762677484787018,
+      "recall": 0.864,
+      "f1-score": 0.8700906344410876,
       "support": 500.0
     },
-    "accuracy": 0.896,
+    "accuracy": 0.8955,
     "macro avg": {
-      "precision": 0.8961191705477521,
-      "recall": 0.896,
-      "f1-score": 0.8960011744721177,
+      "precision": 0.8956533008814824,
+      "recall": 0.8955,
+      "f1-score": 0.8954593475811159,
       "support": 2000.0
     },
     "weighted avg": {
-      "precision": 0.8961191705477521,
-      "recall": 0.896,
-      "f1-score": 0.8960011744721177,
+      "precision": 0.8956533008814824,
+      "recall": 0.8955,
+      "f1-score": 0.8954593475811159,
       "support": 2000.0
     }
   },
   "modelo": "TfidfVectorizer + LogisticRegression",
   "configuracion": {
-    "max_features": 20000,
+    "max_features": 50000,
     "ngram_range": [
       1,
-      1
+      2
     ],
     "min_df": 2,
     "sublinear_tf": true
@@ -55,7 +55,7 @@
         1,
         1
       ],
-      "f1_val_weighted": 0.9058,
+      "f1_val_weighted": 0.9046,
       "fit_seconds": 0.1
     },
     "B": {
@@ -77,6 +77,6 @@
       "fit_seconds": 0.2
     }
   },
-  "parametros_entrenables": 36864,
-  "tiempo_entrenamiento_seg": 0.1
+  "parametros_entrenables": 102032,
+  "tiempo_entrenamiento_seg": 0.2
 }

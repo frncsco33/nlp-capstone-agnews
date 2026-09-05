@@ -1,15 +1,25 @@
 """Pipeline de preprocesamiento: limpieza Regex + normalización + lematización SpaCy."""
+import html
 import re
 
 import spacy
 
 nlp = spacy.load("en_core_web_sm", disable=["parser", "ner"])
 
-RE_HTML = re.compile(r"<[^>]+>")
-# Entidades HTML y sus remanentes: el corpus trae formas completas (&lt;) y también
-# truncadas sin ampersand ("quot;", "#39;"); sin esto sobreviven como tokens
-# "lt"/"gt"/"quot" y contaminan el top de palabras — lo detectó el EDA del Módulo 2.
-RE_ENTITY = re.compile(r"&(?:[a-z]{2,8}|#\d+);|\b(?:quot|amp|lt|gt|nbsp|apos);|#\d+;")
+# El corpus trae tags HTML codificados como entidades (&lt;A HREF="..."&gt;) y también
+# entidades truncadas sin ampersand ("quot;", "#39;"). El orden importa: primero se
+# DECODIFICAN las entidades a sus caracteres para que el tag quede completo (<a ...>)
+# y la remoción de tags se lleve también sus atributos (href, target, font face...).
+# Quitar las entidades sin decodificar deja las tripas del tag como texto — lo detectó
+# el EDA del Módulo 2 cuando "href target" y "font face verdana" aparecieron en el
+# top de n-gramas.
+RE_BARE_LT = re.compile(r"\blt;")
+RE_BARE_GT = re.compile(r"\bgt;")
+RE_BARE_AMP = re.compile(r"\bamp;")
+RE_BARE_ENTITY = re.compile(r"\b(?:quot|apos|nbsp);|#\d+;")
+RE_HTML = re.compile(r"<[^>]*>")
+RE_HTML_OPEN = re.compile(r"<[^>]*$")          # tag sin cerrar en docs truncados
+RE_REUTERS = re.compile(r"\([a-z0-9.,&; ]*:\s*quote,\s*profile,\s*research\s*\)")
 RE_URL = re.compile(r"http\S+|www\.\S+")
 RE_NOISE = re.compile(r"[^a-z\s]")
 RE_WS = re.compile(r"\s+")
@@ -21,8 +31,14 @@ MIN_LEMMA_LEN = 1
 
 def clean(text: str) -> str:
     text = text.lower()
+    text = html.unescape(text)              # &lt; -> <, &#39; -> ', &amp; -> &
+    text = RE_BARE_LT.sub("<", text)        # formas truncadas sin ampersand
+    text = RE_BARE_GT.sub(">", text)
+    text = RE_BARE_AMP.sub("&", text)
+    text = RE_BARE_ENTITY.sub(" ", text)
     text = RE_HTML.sub(" ", text)
-    text = RE_ENTITY.sub(" ", text)
+    text = RE_HTML_OPEN.sub(" ", text)
+    text = RE_REUTERS.sub(" ", text)        # boilerplate "(xyz.n: quote, profile, research)"
     text = RE_URL.sub(" ", text)
     text = RE_NOISE.sub(" ", text)
     return RE_WS.sub(" ", text).strip()
