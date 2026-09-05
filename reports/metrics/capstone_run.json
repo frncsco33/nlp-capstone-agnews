@@ -1,0 +1,11 @@
+{
+  "f1_weighted_test": 0.91,
+  "mcnemar": {
+    "ambos_aciertan": 1730,
+    "solo_tfidf": 61,
+    "solo_lora": 90,
+    "ambos_fallan": 119
+  },
+  "max_len": 83,
+  "gpu": "Tesla T4"
+}
