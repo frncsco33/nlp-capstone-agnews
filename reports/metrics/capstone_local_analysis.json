@@ -1,0 +1,93 @@
+{
+  "f1_reproducido": 0.8955,
+  "top_features_por_clase": {
+    "World": [
+      "iraq",
+      "president",
+      "kill",
+      "leader",
+      "afp",
+      "minister",
+      "nuclear",
+      "election",
+      "un",
+      "rebel",
+      "military",
+      "iraqi",
+      "israel",
+      "government",
+      "baghdad"
+    ],
+    "Sports": [
+      "team",
+      "game",
+      "coach",
+      "season",
+      "win",
+      "cup",
+      "league",
+      "player",
+      "night",
+      "olympic",
+      "football",
+      "champion",
+      "sport",
+      "play",
+      "victory"
+    ],
+    "Business": [
+      "company",
+      "oil",
+      "inc",
+      "profit",
+      "billion",
+      "economy",
+      "co",
+      "price",
+      "fund",
+      "corp",
+      "stock",
+      "share",
+      "buy",
+      "executive",
+      "bank"
+    ],
+    "Sci_Tech": [
+      "space",
+      "internet",
+      "microsoft",
+      "software",
+      "scientist",
+      "computer",
+      "technology",
+      "nasa",
+      "online",
+      "user",
+      "phone",
+      "launch",
+      "apple",
+      "com",
+      "system"
+    ]
+  },
+  "oov": {
+    "global": 0.0762,
+    "docs_mayor_20pct": 0.078,
+    "medio_aciertos": 0.0775,
+    "medio_errores": 0.0784
+  },
+  "jaccard_top300": {
+    "World-Sports": 0.1881,
+    "World-Business": 0.2245,
+    "World-Sci_Tech": 0.1952,
+    "Sports-Business": 0.1858,
+    "Sports-Sci_Tech": 0.1905,
+    "Business-Sci_Tech": 0.3453
+  },
+  "error_por_cuartil_longitud": {
+    "(6.999, 20.0]": 0.1378,
+    "(20.0, 23.0]": 0.0795,
+    "(23.0, 27.0]": 0.073,
+    "(27.0, 77.0]": 0.1214
+  }
+}
